@@ -1,4 +1,9 @@
-# Mini multi-agent (proof of concept)
+# Mini multi-agent chat
+
+
+<img width="815" height="589" alt="image" src="https://github.com/user-attachments/assets/cabbeba0-f3ec-40f6-81da-98e58eb7aabe" />
+
+---
 
 Pipeline: **planner** -> **executor** (draft) -> **critic** (optional) -> **final answer** that uses all prior text. If the critic reports issues, the final step is supposed to fix them; if the critic says OK, the final answer still polishes from the draft.
 
@@ -43,7 +48,7 @@ python -m mini_agents
 
 ## Ollama
 
-Install [Ollama](https://ollama.com), `ollama pull qwen2.5:7b`, copy `mini_agents/.env.example` to `mini_agents/.env`.
+Install [Ollama](https://ollama.com), for example `ollama pull qwen2.5:7b`, copy `mini_agents/.env.example` to `mini_agents/.env`.
 
 CPU-only (reliable): stop Ollama, then start with `OLLAMA_NUM_GPU=0` (see `/help` in the app). Per-request `cpu` may work on newer Ollama via OpenAI `options`; if not, use the server env.
 
