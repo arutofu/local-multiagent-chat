@@ -1,0 +1,70 @@
+Metadata-Version: 2.4
+Name: mini-agents-cli
+Version: 0.1.0
+Summary: Mini multi-agent: planner, executor, critic, final answer
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: openai>=1.40.0
+Requires-Dist: python-dotenv>=1.0.0
+
+# Mini multi-agent (proof of concept)
+
+Pipeline: **planner** -> **executor** (draft) -> **critic** (optional) -> **final answer** that uses all prior text. If the critic reports issues, the final step is supposed to fix them; if the critic says OK, the final answer still polishes from the draft.
+
+Same model can back every step; orchestration is explicit string handoff, not a swarm.
+
+## Install (console command `mini-agents`)
+
+From the repo root (`local-multiagent-chat/`):
+
+```bash
+pip install -e .
+```
+
+Ensure `.env` exists in `mini_agents/` (copy `mini_agents/.env.example`) or set env vars. Then:
+
+```bash
+mini-agents
+```
+
+Opens an interactive prompt; type questions or slash commands (`/help`). One-shot:
+
+```bash
+mini-agents "Your question here"
+```
+
+Without install:
+
+```bash
+cd mini_agents
+pip install -r requirements.txt
+python main.py
+python main.py "Your question"
+```
+
+From repo root without editable install:
+
+```bash
+python -m mini_agents
+```
+
+## Ollama
+
+Install [Ollama](https://ollama.com), `ollama pull qwen2.5:7b`, copy `.env.example` to `mini_agents/.env`.
+
+CPU-only (reliable): stop Ollama, then start with `OLLAMA_NUM_GPU=0` (see `/help` in the app). Per-request `cpu` may work on newer Ollama via OpenAI `options`; if not, use the server env.
+
+## OpenAI cloud
+
+Set `OPENAI_API_KEY`, `OPENAI_BASE_URL=https://api.openai.com/v1`, `LLM_MODEL=gpt-4o-mini` (or similar).
+
+## Flags
+
+- `--no-critic` - skip critic; final step uses plan + draft only.
+- `--no-final` - stop after executor (or critic if enabled).
+- `--device auto|cpu|gpu` - Ollama hint.
+- `--once "text"` - one run then exit (useful in scripts).
+
+## Difference from one LLM call
+
+Four structured stages with shared context in code: plan, draft, review, merged final output.

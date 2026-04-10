@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mini-agents-cli"
+version = "0.1.0"
+description = "Mini multi-agent: planner, executor, critic, final answer"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "openai>=1.40.0",
+    "python-dotenv>=1.0.0",
+    "colorama>=0.4.6",
+]
+
+[project.scripts]
+mini-agents = "mini_agents.main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["mini_agents*"]
+
+[tool.setuptools.package-data]
+mini_agents = ["prompts/*.txt"]

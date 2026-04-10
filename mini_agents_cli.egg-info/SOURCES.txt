@@ -1,0 +1,11 @@
+pyproject.toml
+mini_agents/README.md
+mini_agents/__init__.py
+mini_agents/__main__.py
+mini_agents/main.py
+mini_agents_cli.egg-info/PKG-INFO
+mini_agents_cli.egg-info/SOURCES.txt
+mini_agents_cli.egg-info/dependency_links.txt
+mini_agents_cli.egg-info/entry_points.txt
+mini_agents_cli.egg-info/requires.txt
+mini_agents_cli.egg-info/top_level.txt
